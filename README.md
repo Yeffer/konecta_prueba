@@ -1,1 +1,3 @@
-# konecta_prueba
+
+##PRUEBA KONECTA - BY YEFFER
+CREATE DATABASE `konecta_prueba` /*!40100 COLLATE 'utf8_bin' */
