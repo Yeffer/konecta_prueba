@@ -24,8 +24,7 @@ class Product extends Migration
             $table->timestamp('created_at')->nullable();            
             $table->foreign('category_id')
                 ->references('id')
-                ->on('categories');   
-           // $table->foreign('brand_id')->on('brands')->references('id')     
+                ->on('categories');
         });
     }
 

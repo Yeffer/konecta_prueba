@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {   
-        $categories = Category::all();
+        $categories = Category::all(); 
         return view("create-product")->with('categories',$categories);
     }
 
@@ -58,8 +58,9 @@ class ProductController extends Controller
             'category_id' =>  request('category_id'),
             'stock' => request('stock')
         ]);
-        
-        return redirect()->route('home')->with('notice', 'El usuario ha sido creado correctamente.');
+       
+        notify()->success('Producto creado correctamente');        
+        return redirect()->route('home');
     }
 
     /**
@@ -103,8 +104,11 @@ class ProductController extends Controller
         $product->weight = $request->input('weight');        
         $product->category_id = $request->input('category_id');
         $product->stock = $request->input('stock');
-        $product->save();
-
+        
+        if($product->save()){
+            notify()->success('Producto actualizado correctamente');
+        }
+        
         return redirect()->route('home');
     }
 
@@ -117,8 +121,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        $product->delete();
-        
+        if($product->delete()){
+          notify()->success('Producto eliminado correctamente');
+        }
         return redirect()->route('home');
     }
 }

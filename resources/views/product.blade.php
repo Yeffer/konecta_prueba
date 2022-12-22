@@ -1,6 +1,6 @@
 @include('header');
 <div class="container">
-    <div class="card">
+    <div>
             <div class="card-header">LISTA PRODUCTOS</div>
             <div class="card-body">		
             <a href="/create" style="text-decoration:none;">

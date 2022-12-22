@@ -2,7 +2,7 @@
 @include('header');    
 <div class="container">
     <br>
-    <div class="card">
+    <div >
         <div class="card-header">VENTA PRODUCTO</div>
         <div class="card-body">
             <form class="form-horizontal" method="POST" action="{{ route('sales.update',  $products->id) }}">
@@ -87,7 +87,10 @@
 
                 <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" id="registro">Comprar</button>
+                        <button type="submit" class="btn btn-outline-primary" id="registro">Comprar</button>
+                        <a href="{{ url()->previous() }}" style="text-decoration:none;">
+                            <button type="button" class="btn btn-outline-dark" id="volver">Volver</button>
+                        </a>
                     </div>
                 </div>
             </form>

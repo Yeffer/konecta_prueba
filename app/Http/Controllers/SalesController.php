@@ -83,8 +83,9 @@ class SalesController extends Controller
         $stockSale = $request->sale;
         $idProduct = $product->id;
 
-        if($stockSale == NULL || $stockSale == '' || $stockSale == 0){
-            return "No es posible realizar la venta: comprar 0";
+        if($stockSale == NULL || $stockSale == '' || $stockSale == 0){   
+            notify()->error('No es posible realizar la venta. La venta debe ser diferente de cero.');        
+            return back();
         }
 
         if($stock >= $stockSale){
@@ -99,10 +100,11 @@ class SalesController extends Controller
                 'quantity' => $stockSale,
             ]);            
 
-        }elseif($stock < $stockSale){
-            return "No es posible realizar la venta. Valor a comprar mayor a la cantidad disponible.";    
+        }elseif($stock < $stockSale){       
+            notify()->error('No es posible realizar la venta. Valor a comprar mayor a la cantidad disponible.');
+            return back();
         }
-
+        notify()->success('Venta realizada correctamente.'); 
         return redirect()->route('home');      
     }
 

@@ -75,9 +75,12 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" id="registro">Guardar</button>
+                        <button type="submit" class="btn btn-outline-primary" id="registro">Guardar</button>
+                        <a href="{{ url()->previous() }}" style="text-decoration:none;">
+                            <button type="button" class="btn btn-outline-dark" id="volver">Volver</button>
+                        </a>
                     </div>
-                </div>
+                </div>               
             </form>
         </div>
     </div>

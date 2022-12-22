@@ -2,7 +2,10 @@
 <div class="container">
     <div class="card">
             <div class="card-header">LISTA VENTAS</div>
-            <div class="card-body">            
+            <div class="card-body">
+            <a href="{{ url()->previous() }}" style="text-decoration:none;">
+                <button type="button" class="btn btn-outline-dark" id="volver">Volver</button>
+            </a>            
             <table class='table table-hover table-striped'>                    
                 <thead>
                     <tr>
