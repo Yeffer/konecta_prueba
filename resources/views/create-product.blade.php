@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">NUEVO PRODUCTO</div>
         <div class="card-body">                    
-            <form class="form-horizontal" method="POST" action="{{ route('sales.update') }}">
+            <form class="form-horizontal" method="POST" action="{{ route('create.store') }}">
                 @csrf
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="name">Nombre:</label>
