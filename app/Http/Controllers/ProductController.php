@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {   
-        $categories = Category::all();        
+        $categories = Category::all();
         return view("create-product")->with('categories',$categories);
     }
 
@@ -49,7 +49,6 @@ class ProductController extends Controller
             'category_id' => 'required',
             'stock' => 'required'
         ]);
-
         
         Product::create([
             'name' => request('name'),
@@ -81,8 +80,11 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $products = Product::findOrFail($id);
+        $categories = Category::all();
+        
+        return view('update-product')->with('products', $products)->with('categories', $categories);        
     }
 
     /**
@@ -93,8 +95,17 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {        
+        $product = Product::findOrFail($id);
+        $product->name = $request->input('name');
+        $product->reference = $request->input('reference');
+        $product->price = $request->input('price');
+        $product->weight = $request->input('weight');        
+        $product->category_id = $request->input('category_id');
+        $product->stock = $request->input('stock');
+        $product->save();
+
+        return redirect()->route('home');
     }
 
     /**
@@ -105,6 +116,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        
+        return redirect()->route('home');
     }
 }

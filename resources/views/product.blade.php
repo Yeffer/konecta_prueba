@@ -7,6 +7,7 @@
                 <button class='btn btn-primary btn-sm'>Nuevo Producto</button>
             </a>	
                 <table class='table table-hover table-striped'>
+                    
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -28,24 +29,24 @@
                             <td>{{ $product->category->name }}</td>
                             <td>
                                 @if($product->stock == 0)
-                                    <a href="" style="text-decoration:none;">
+                                    <a href="{{ route('create.edit', $product->id) }}" style="text-decoration:none;">
                                         <button class='btn btn-outline-warning'>
                                             <i class="fa-solid fa-arrow-up-from-bracket"></i>
                                         </button>
                                     </a>
-                                @else
-                                    <a href="" style="text-decoration:none;">
+                                @else 
+                                    <a href="#" style="text-decoration:none;">
                                         <button class='btn btn-outline-success'>
                                             <i class="fa-regular fa-square-check"></i>
                                         </button>
                                     </a>
-                                    <a href="" style="text-decoration:none;">
+                                    <a href="{{ route('create.edit', $product->id) }}" style="text-decoration:none;">
                                         <button type="button" class="btn btn-outline-primary">
                                             <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </a>
                                 @endif
-                                <a href="" style="text-decoration:none;">
+                                <a href="{{ route('create.delete', $product->id) }}" style="text-decoration:none;">
                                     <button type="button" class="btn btn-outline-danger">
                                         <i class="fa fa-trash"></i>
                                     </button>
