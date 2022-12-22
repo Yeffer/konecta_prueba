@@ -19,6 +19,7 @@
         "sass-loader": "^12.1.0"
     },
     "dependencies": {
+        "font-awesome": "^4.7.0",
         "material-components-web": "^14.0.0"
     }
 }

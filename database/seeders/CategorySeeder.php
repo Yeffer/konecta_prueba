@@ -14,20 +14,24 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('category')->insert([
+        DB::table('categories')->insert([
             'name' => 'Alcohol'
         ]);
 
-        DB::table('category')->insert([
+        DB::table('categories')->insert([
             'name' => 'Lacteos'
         ]);
 
-        DB::table('category')->insert([
+        DB::table('categories')->insert([
             'name' => 'Bebidas Calientes'
         ]);
 
-        DB::table('category')->insert([
+        DB::table('categories')->insert([
             'name' => 'Bebidas Frias'
+        ]);
+
+        DB::table('categories')->insert([
+            'name' => 'Otro'
         ]);
     }
 }

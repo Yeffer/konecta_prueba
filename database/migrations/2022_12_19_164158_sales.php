@@ -20,7 +20,7 @@ class Sales extends Migration
             $table->timestamp('created_at')->nullable();
             $table->foreign('product_id')
                 ->references('id')
-                ->on('product'); 
+                ->on('products'); 
         });
     }
 

@@ -13,9 +13,9 @@ class Product extends Migration
      */
     public function up()
     {
-        Schema::create('product', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name')->unique()->nullable();
             $table->string('reference')->nullable();
             $table->integer('price')->nullable();
             $table->integer('weight')->nullable();
@@ -24,7 +24,8 @@ class Product extends Migration
             $table->timestamp('created_at')->nullable();            
             $table->foreign('category_id')
                 ->references('id')
-                ->on('category');        
+                ->on('categories');   
+           // $table->foreign('brand_id')->on('brands')->references('id')     
         });
     }
 
@@ -35,6 +36,6 @@ class Product extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product');
+        Schema::dropIfExists('products');
     }
 }
