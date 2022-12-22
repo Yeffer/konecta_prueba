@@ -18,8 +18,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $sales = Sales::all();
-        
+        $sales = Sales::paginate(10);
         return view('sales-show')->with('sales', $sales);
     }
 

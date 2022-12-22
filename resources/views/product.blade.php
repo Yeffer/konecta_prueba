@@ -60,6 +60,11 @@
                     @endforelse		
                 </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">                    
+                    <li class="page-item">{{ $products->links() }}</li>                    
+                </ul>
+            </nav>
         </div>
         </div>
 </div>
