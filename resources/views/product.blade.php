@@ -32,24 +32,24 @@
                             <td>
                                 @if($product->stock == 0)
                                     <a href="{{ route('create.edit', $product->id) }}" style="text-decoration:none;">
-                                        <button class='btn btn-outline-warning'>
+                                        <button class='btn btn-outline-warning' data-bs-toggle="tooltip" data-bs-html="true" title="Agregar">
                                             <i class="fa-solid fa-arrow-up-from-bracket"></i>
                                         </button>
                                     </a>
                                 @else 
-                                    <a href="{{ route('sales.edit', $product->id) }}" style="text-decoration:none;">
+                                    <a href="{{ route('sales.edit', $product->id) }}" style="text-decoration:none;" data-bs-toggle="tooltip" data-bs-html="true" title="Vender">
                                         <button class='btn btn-outline-success'>
                                             <i class="fas fa-cart-arrow-down"></i>
                                         </button>
                                     </a>
                                     <a href="{{ route('create.edit', $product->id) }}" style="text-decoration:none;">
-                                        <button type="button" class="btn btn-outline-primary">
+                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-html="true" title="Editar">
                                             <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </a>
                                 @endif
                                 <a href="{{ route('create.delete', $product->id) }}" style="text-decoration:none;">
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-html="true" title="Eliminar">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </a>
