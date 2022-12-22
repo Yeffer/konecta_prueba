@@ -3,11 +3,13 @@
     <div class="card">
             <div class="card-header">LISTA PRODUCTOS</div>
             <div class="card-body">		
-            <a href="/create">
-                <button class='btn btn-primary btn-sm'>Nuevo Producto</button>
+            <a href="/create" style="text-decoration:none;">
+                <button class='btn btn-outline-primary'>Nuevo Producto</button>
             </a>	
-                <table class='table table-hover table-striped'>
-                    
+            <a href="/sales" style="text-decoration:none;">
+                <button class='btn btn-outline-success'>Ventas realizadas</button>
+            </a>
+            <table class='table table-hover table-striped'>                    
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -35,9 +37,9 @@
                                         </button>
                                     </a>
                                 @else 
-                                    <a href="#" style="text-decoration:none;">
+                                    <a href="{{ route('sales.edit', $product->id) }}" style="text-decoration:none;">
                                         <button class='btn btn-outline-success'>
-                                            <i class="fa-regular fa-square-check"></i>
+                                            <i class="fas fa-cart-arrow-down"></i>
                                         </button>
                                     </a>
                                     <a href="{{ route('create.edit', $product->id) }}" style="text-decoration:none;">

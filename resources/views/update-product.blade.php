@@ -3,10 +3,10 @@
 <div class="container">
     <br>
     <div class="card">
-        <div class="card-header">NUEVO PRODUCTO</div>
+        <div class="card-header">ACTULIZAR PRODUCTO</div>
         <div class="card-body">                    
             <form class="form-horizontal" method="POST" action="{{ route('create.update',  $products->id) }}">
-                @csrf @method('PATCH')                
+                @csrf @method('PATCH')
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="name">Nombre:</label>
                     <div class="col-sm-10">
@@ -79,7 +79,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" id="registro">Actuliza</button>
+                        <button type="submit" class="btn btn-primary" id="registro">Actualizar</button>
                     </div>
                 </div>
             </form>
