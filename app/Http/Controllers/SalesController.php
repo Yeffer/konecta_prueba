@@ -17,8 +17,14 @@ class SalesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $sales = Sales::paginate(10);
+    {        
+        try{
+            $sales = Sales::paginate(10);
+                    
+        } catch(\Illuminate\Database\QueryException $ex){            
+            notify()->error($ex->errorInfo[2]);
+            return back();
+        }  
         return view('sales-show')->with('sales', $sales);
     }
 
@@ -62,9 +68,14 @@ class SalesController extends Controller
      */
     public function edit($id)
     {        
-        $products = Product::findOrFail($id);
-        $categories = Category::all();
-        
+        try{
+            $products = Product::findOrFail($id);
+            $categories = Category::all();
+        } catch(\Illuminate\Database\QueryException $ex){            
+            notify()->error($ex->errorInfo[2]);
+            return back();
+        }  
+
         return view('sales')->with('products', $products)->with('categories', $categories);     
     }
 
@@ -77,32 +88,39 @@ class SalesController extends Controller
      */
     public function update(Request $request, $id)
     {        
-        $product = Product::findOrFail($id);
-        $stock = $product->stock;
-        $stockSale = $request->sale;
-        $idProduct = $product->id;
+        try{
+            $product = Product::findOrFail($id);
+            $stock = $product->stock;
+            $stockSale = $request->sale;
+            $idProduct = $product->id;
 
-        if($stockSale == NULL || $stockSale == '' || $stockSale == 0){   
-            notify()->error('No es posible realizar la venta. La venta debe ser diferente de cero.');        
-            return back();
-        }
+            if($stockSale == NULL || $stockSale == '' || $stockSale == 0){   
+                notify()->error('No es posible realizar la venta. La venta debe ser diferente de cero.');        
+                return back();
+            }
 
-        if($stock >= $stockSale){
-            $total = ($stock - $stockSale);
+            if($stock >= $stockSale){
+                $total = ($stock - $stockSale);
+                
+                $product->update([                
+                    'stock' => $total,                
+                ]);
+                
+                Sales::create([
+                    'product_id' => $idProduct,
+                    'quantity' => $stockSale,
+                ]);            
+
+            }elseif($stock < $stockSale){       
+                notify()->error('No es posible realizar la venta. Valor a comprar mayor a la cantidad disponible.');
+                return back();
+            }
             
-            $product->update([                
-                'stock' => $total,                
-            ]);
-            
-            Sales::create([
-                'product_id' => $idProduct,
-                'quantity' => $stockSale,
-            ]);            
-
-        }elseif($stock < $stockSale){       
-            notify()->error('No es posible realizar la venta. Valor a comprar mayor a la cantidad disponible.');
+        } catch(\Illuminate\Database\QueryException $ex){            
+            notify()->error($ex->errorInfo[2]);
             return back();
-        }
+        }  
+        
         notify()->success('Venta realizada correctamente.'); 
         return redirect()->route('home');      
     }

@@ -17,7 +17,13 @@ class ProductController extends Controller
      */
     public function index()
     {   
-        $products = Product::paginate(10);
+        try{
+            $products = Product::paginate(10);
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            notify()->error($ex->errorInfo[2]);
+            return back();
+        }    
+                
         return view("product")->with('products',$products);
     }
     
@@ -41,24 +47,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'reference' => 'required',
-            'price' => 'required',
-            'weight' => 'required',
-            'category_id' => 'required',
-            'stock' => 'required'
-        ]);
-        
-        Product::create([
-            'name' => request('name'),
-            'reference' => request('reference'),
-            'price' => request('price'),
-            'weight' => request('weight'),
-            'category_id' =>  request('category_id'),
-            'stock' => request('stock')
-        ]);
-       
+        try{
+            $validated = $request->validate([
+                'name' => 'required',
+                'reference' => 'required',
+                'price' => 'required',
+                'weight' => 'required',
+                'category_id' => 'required',
+                'stock' => 'required'
+            ]);
+            
+            Product::create([
+                'name' => request('name'),
+                'reference' => request('reference'),
+                'price' => request('price'),
+                'weight' => request('weight'),
+                'category_id' =>  request('category_id'),
+                'stock' => request('stock')
+            ]);
+
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            notify()->error($ex->errorInfo[2]);
+            return back();
+        }    
+
         notify()->success('Producto creado correctamente');        
         return redirect()->route('home');
     }
@@ -97,19 +109,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {        
-        $product = Product::findOrFail($id);
-        $product->name = $request->input('name');
-        $product->reference = $request->input('reference');
-        $product->price = $request->input('price');
-        $product->weight = $request->input('weight');        
-        $product->category_id = $request->input('category_id');
-        $product->stock = $request->input('stock');
-        
-        if($product->save()){
-            notify()->success('Producto actualizado correctamente');
-        }
-        
-        return redirect()->route('home');
+        try{
+            $product = Product::findOrFail($id);
+            $product->name = $request->input('name');
+            $product->reference = $request->input('reference');
+            $product->price = $request->input('price');
+            $product->weight = $request->input('weight');        
+            $product->category_id = $request->input('category_id');
+            $product->stock = $request->input('stock');            
+            $product->save();            
+
+        } catch(\Illuminate\Database\QueryException $ex){            
+            notify()->error($ex->errorInfo[2]);
+            return back();
+        }        
+        notify()->success('Producto actualizado correctamente');        
+        return redirect()->route('home');        
     }
 
     /**
@@ -120,10 +135,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        if($product->delete()){
-          notify()->success('Producto eliminado correctamente');
-        }
+        try{
+            $product = Product::findOrFail($id);
+            $product->delete();
+            notify()->success('Producto eliminado correctamente');            
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            notify()->error($ex->errorInfo[2]);
+            return back();         
+        } 
         return redirect()->route('home');
     }
 }

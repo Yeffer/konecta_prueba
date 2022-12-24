@@ -2,7 +2,7 @@
 @include('header');    
 <div class="container">
     <br>
-    <div class="card">
+    <div>
         <div class="card-header">ACTULIZAR PRODUCTO</div>
         <div class="card-body">                    
             <form class="form-horizontal" method="POST" action="{{ route('create.update',  $products->id) }}">
